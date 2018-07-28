@@ -2,6 +2,8 @@ import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Asset, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
+import SideDrawer from './navigation/SideNavigation';
+import Router from './Router';
 
 export default class App extends React.Component {
   state = {
@@ -9,6 +11,7 @@ export default class App extends React.Component {
   };
 
   render() {
+    // this.props.navigation.navigate('Side');
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
       return (
         <AppLoading
@@ -20,8 +23,10 @@ export default class App extends React.Component {
     } else {
       return (
         <View style={styles.container}>
-          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <AppNavigator />
+          {/* {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+          <AppNavigator /> */}
+          {/* <SideDrawer /> */}
+          <Router />
         </View>
       );
     }
