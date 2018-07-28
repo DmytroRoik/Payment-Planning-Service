@@ -7,10 +7,22 @@ import {
   TouchableOpacity 
 } from 'react-native';
 import { connect } from 'react-redux';
-import { loginAction } from '../actions/user';
+import { login, register } from '../actions/user';
 
 class Form extends Component {
+    data = {
+        email: '',
+        password: ''
+    }
 
+    onSubmitHandler = () => {
+        if (this.props.type === 'Login') {
+            this.props.login(this.data);
+        } else if (this.props.type === 'Signup') {
+            this.props.register(this.data);
+        }
+    }
+    
 	render(){
 		return(
 	    <View style={styles.container}>
@@ -20,6 +32,7 @@ class Form extends Component {
               placeholderTextColor = "#ffffff"
               selectionColor="#fff"
               keyboardType="email-address"
+              onChangeText={text => this.data.email = text}
               onSubmitEditing={()=> this.password.focus()}
               />
           <TextInput style={styles.inputBox} 
@@ -27,10 +40,11 @@ class Form extends Component {
               placeholder="Password"
               secureTextEntry={true}
               placeholderTextColor = "#ffffff"
+              onChangeText={text => this.data.password = text}
               ref={(input) => this.password = input}
               />  
            <TouchableOpacity style={styles.button}>
-             <Text style={styles.buttonText} onPress={this.props.loginAction}>{this.props.type}</Text>
+             <Text style={styles.buttonText} onPress={this.onSubmitHandler}>{this.props.type}</Text>
            </TouchableOpacity>     
   		</View>
 			)
@@ -71,7 +85,7 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = {
-    loginAction
+    login, register
 }
 
 export default connect(null, mapDispatchToProps) (Form);

@@ -1,5 +1,5 @@
 const initialState = {
-   isUserLogged: !!localStorage.getItem('token'),
+   isUserLogged: false,
   };
   
   export default function user(state = initialState, action) {

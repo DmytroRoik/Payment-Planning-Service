@@ -1,22 +1,23 @@
 import axios from 'axios';
+import { AsyncStorage } from 'react-native';
 import { API_URL } from '../constants/config';
 
 const requests = {
     get: (url) => {
-        return axios.get(`${API_URL}${url}`,{
-         headers: { 
-             Authorization: 'Bearer ' + localStorage.getItem('token'),
-             'Content-Type': 'application/json',
-        }
-        });
+            return axios.get(`${API_URL}${url}`, {
+                headers: { 
+                    Authorization: 'Bearer ' + AsyncStorage.getItem('token'),
+                    'Content-Type': 'application/json',
+                }
+            });
     },
     post: (url, data) => {
-        return axios.post(`${API_URL}${url}`, data, {
-            headers: { 
-                Authorization: 'Bearer ' + localStorage.getItem('token'),
-                'Content-Type': 'application/json',
-            }
-        })
+            return axios.post(`${API_URL}${url}`, data, {
+                headers: { 
+                    Authorization: 'Bearer ' + AsyncStorage.getItem('token'),
+                    'Content-Type': 'application/json',
+                }
+            })
     },
     patch: (url, data) => {
         return axios.patch(`${API_URL}${url}`, data, {
