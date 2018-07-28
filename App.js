@@ -5,6 +5,18 @@ import AppNavigator from './navigation/AppNavigator';
 import SideDrawer from './navigation/SideNavigation';
 import Router from './Router';
 
+// redux + thunk
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
+import reducers from './reducers';
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+
+const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));
+
+
 export default class App extends React.Component {
   state = {
     isLoadingComplete: false,
@@ -22,12 +34,14 @@ export default class App extends React.Component {
       );
     } else {
       return (
-        <View style={styles.container}>
-          {/* {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <AppNavigator /> */}
-          {/* <SideDrawer /> */}
-          <Router />
-        </View>
+        <Provider store={store}>
+          <View style={styles.container}>
+            {/* {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+            <AppNavigator /> */}
+            {/* <SideDrawer /> */}
+            <Router />
+          </View>
+          </Provider>
       );
     }
   }
