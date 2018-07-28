@@ -6,8 +6,10 @@ import {
   TextInput,
   TouchableOpacity 
 } from 'react-native';
+import { connect } from 'react-redux';
+import { loginAction } from '../actions/user';
 
-export default class Logo extends Component {
+class Form extends Component {
 
 	render(){
 		return(
@@ -28,7 +30,7 @@ export default class Logo extends Component {
               ref={(input) => this.password = input}
               />  
            <TouchableOpacity style={styles.button}>
-             <Text style={styles.buttonText} onPress={()=>{}}>{this.props.type}</Text>
+             <Text style={styles.buttonText} onPress={this.props.loginAction}>{this.props.type}</Text>
            </TouchableOpacity>     
   		</View>
 			)
@@ -67,3 +69,9 @@ const styles = StyleSheet.create({
   }
   
 });
+
+const mapDispatchToProps = {
+    loginAction
+}
+
+export default connect(null, mapDispatchToProps) (Form);
